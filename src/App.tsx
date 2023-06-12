@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+import restart from './assets/restart.svg'
+import mapPin from './assets/map-pin.svg'
+import thermometer from './assets/thermometer.svg'
+import wind from './assets/wind.svg'
+import weatherIcon from './assets/weather.svg'
+
 type Weather = {
   coord: {
     lon: number
@@ -66,42 +72,65 @@ function App() {
 
   return (
     <div className="background">
-      <div className="m-auto w-[75%] bg-blur">
-        <h1 className="text-center font-bold mt-52 text-4xl">
-          <span className="text-orange-300">Weather</span>
-          <span className="text-green-400">App</span>
-        </h1>
-        {!weather ? (
-          <form className="mt-16 flex flex-col items-center">
-            <input
-              className="font-bold text-black rounded-xl text-center p-3"
-              placeholder="Your city"
-              type="text"
-              onChange={(e) => setCity(e.target.value)}
-            />
-            <button
-              onClick={fetchWeather}
-              type="button"
-              className="font-medium bg-yellow-200 hover:bg-yellow-100 mt-3 rounded-md p-2 w-40"
-            >
-              Check the weather
-            </button>
-          </form>
-        ) : (
-          <div className="mt-16 bg-blue-500 p-8 rounded-xl">
-            <h2 className="font-semibold">
-              {weather.name}, {weather.sys.country}
-            </h2>
-            <p className="">{weather.weather[0].main} Weather</p>
-            <img
-              src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-              alt=""
-            />
-            <p>
-              <span>C°</span> {weather?.main.temp}
-            </p>
-          </div>
-        )}
+      <div className="h-screen w-screen absolute top-0 left-0 backdrop-blur-sm">
+        <div className="m-auto w-[75%] z-10">
+          <h1 className="text-center font-bold mt-52 text-4xl text-gray-600">
+            Weather App
+          </h1>
+          {!weather ? (
+            <form className="mt-8 flex flex-col items-center">
+              <input
+                className="font-bold text-black rounded-xl text-center p-3"
+                placeholder="Your city"
+                type="text"
+                onChange={(e) => setCity(e.target.value)}
+                required
+              />
+              <button
+                onClick={fetchWeather}
+                type="button"
+                className="font-medium bg-yellow-200 hover:bg-yellow-100 mt-3 rounded-md p-2 w-40"
+              >
+                Check the weather
+              </button>
+            </form>
+          ) : (
+            <div className="mt-8 bg-zinc-300 text-gray-800 bg-opacity-40 rounded-xl">
+              <div className="flex items-center relative p-4 font-semibold">
+                <button
+                  className="cursor-pointer"
+                  type="button"
+                  onClick={() => setWeather(undefined)}
+                >
+                  <img src={restart} className="absolute top-0 right-0 p-4" />
+                </button>
+                <div className="mr-3">
+                  <h2 className="flex mb-2">
+                    <img className="mr-2" src={mapPin} alt="" />
+                    {weather.name}, {weather.sys.country}
+                  </h2>
+                  <p className="flex mb-2">
+                    <img className="mr-2" src={weatherIcon} alt="" />
+                    {weather.weather[0].main}
+                  </p>
+                  <p className="flex mb-2">
+                    <img className="mr-2" src={thermometer} alt="" />
+                    {weather?.main.temp} <span>°C</span>
+                  </p>
+                  <p className="flex mb-2">
+                    <img className="mr-2" src={wind} alt="" />
+                    {weather.wind.speed}
+                  </p>
+                </div>
+                <img
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                  alt={weather.weather[0].main}
+                  title={weather.weather[0].main}
+                />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

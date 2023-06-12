@@ -9,8 +9,11 @@
   font-style: 'Roboto', sans-serif;
 }
 
-body {
+.background {
   background: url('./assets/background.jpg') no-repeat center center fixed;
   background-size: cover;
-  position: relative;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  right: 0;
 }
