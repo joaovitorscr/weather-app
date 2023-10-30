@@ -109,7 +109,7 @@ function App() {
               </button>
             </form>
           ) : (
-            <div className="mt-8 bg-zinc-300 text-gray-800 bg-opacity-40 rounded-xl">
+            <div className="mt-8 bg-zinc-300 text-gray-800 bg-opacity-40 rounded-xl md:max-w-md md:mx-auto">
               <div className="relative p-4 font-semibold">
                 <button
                   className="cursor-pointer absolute top-0 right-0 p-4"
@@ -168,7 +168,7 @@ function App() {
                         alt={weather.weather[0].main}
                         title={weather.weather[0].main}
                       />
-                      <p className="capitalize">
+                      <p className="capitalize text-sm md:text-lg">
                         {weather.weather[0].description}
                       </p>
                     </div>
